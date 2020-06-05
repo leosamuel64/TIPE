@@ -19,6 +19,18 @@ def calcul_pression(gamma,f,d,k,rho):
     """
     return (((d/k)**2)*(f**2)*rho)/(gamma)
 
+def calcul_pression(gamma,f,d,k,rho):
+    """
+    Entrée :    - gamma : Coefficient isentroprique du fluide
+                - f : Fréquence de l'onde
+                - d : Distance entre les deux sources
+                - k : entier positif (mode propre)
+                - rho : masse volumique du fluide
+
+    Sortie :    - Renvoie la difference de pression par rapport à la pression a l'equilibre
+    """
+    return (340**2*rho)/(gamma)
+
 
 
 def trace_pression(k):
@@ -54,9 +66,6 @@ def trace_force(k,r):
     plt.legend()
     plt.show()
 
-#trace_pression(20)
-trace_force(20,0.001)
-
-
-    
+trace_pression(20)
+# trace_force(20,0.001)
 
