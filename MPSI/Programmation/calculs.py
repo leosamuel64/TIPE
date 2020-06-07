@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from math import *
 
 gamma = 7/5     # On suppose que l'air est un gaz diatomique N_2
@@ -66,6 +66,26 @@ def trace_force(k,r):
     plt.legend()
     plt.show()
 
-trace_pression(20)
+# trace_pression(20)
 # trace_force(20,0.001)
 
+
+
+import numpy as np
+import levitate
+
+transducer = levitate.transducers.TransducerReflector(
+    levitate.transducers.CircularPiston, effective_radius=3e-3,
+    plane_intersect=(0, 0, 0), plane_normal=(0, 0, 1))
+
+array = levitate.arrays.DoublesidedArray(
+    levitate.arrays.RectangularArray, separation=200e-3,
+    normal=(1, 0, 0), offset=(0, 0, 50e-3),
+    shape=(5, 10), transducer=transducer)
+
+phases = array.focus_phases(np.array([25e-3, 0, 40e-3]))
+amps = levitate.utils.complex(phases)
+array.visualize.zlimits = (0, 0.1)
+array.visualize.append('Pressure')
+array.visualize.append('Velocity')
+array.visualize(amps).write_html(file='complex_setup.html', include_mathjax='cdn')
