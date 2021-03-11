@@ -1,13 +1,13 @@
-### TIPE - MP 2020-2021
+# TIPE - MP 2020-2021
 
 ## Installer WSL1
 
-# Activer la fonctionnalité "sous systeme Windows pour Linux"
+### Activer la fonctionnalité "sous systeme Windows pour Linux"
 
 - Aller dans "Panneau de configuration" > "Programmes" > "Activer ou désactiver des fonctionnalités Windows"
 - Cocher la case : "Sous-système Windows pour linux"
 
-# Installer WSL1
+### Installer WSL1
 
 - Ouvrir le PowerShell (Windows+R -> powershell)
 
@@ -18,7 +18,7 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 - Redémarrer votre ordinateur
 
-# Installer une distribution Linux
+### Installer une distribution Linux
 
 - Ouvrir le Microsoft Store
 - Chercher "Debian"
@@ -31,7 +31,7 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 Pour ouvrir un nouveau terminal (Windows+R > bash)
 
-# Installation des bases
+### Installation des bases
 
 ```bash
 sudo apt update
