@@ -68,23 +68,22 @@ def Distance_Manhattan(a,b):
 
 def A_étoile(map, deb, fin):
 	# Création des liste ouverte et fermée
-	listeOuverte = []
-	listeFermée = []
+	à_visiter = []
+	déjà_vu = []
 	# Création des noeud de départ
 	start_node = Noeud(deb, None)
 	goal_node = Noeud(fin, None)
 	# On ajoute le noeud de départ dans la liste ouverte
-	listeOuverte.append(start_node)
+	à_visiter.append(start_node)
 
 	# On s'arrêtera lorsque la liste ouverte sera vide
-	while len(listeOuverte) > 0:
-		# Sort the listeOuverte list to get the noeud with the lowest cost first
+	while len(à_visiter) > 0:
 		# On tri la liste ouverte pour avoir le meilleur noeud en premier (celui avec le cout le plus bas)
-		listeOuverte.sort()																							# TODO : Utiliser un tas?
+		à_visiter.sort()																							# TODO : Utiliser un tas?
 		# on recupere le meilleur noeud...
-		current_node = listeOuverte.pop(0)
+		current_node = à_visiter.pop(0)
 		# Et on l'ajoute à la liste fermé
-		listeFermée.append(current_node)
+		déjà_vu.append(current_node)
 
 		# On verifie si l'on a trouvé l'arrivée
 		if current_node == goal_node:
@@ -105,40 +104,40 @@ def A_étoile(map, deb, fin):
 			map_value = map.get(next)
 			# Verifie si le noeud est un obstacle
 			if(map_value == '#'):
-							continue
+				continue
 			# creation du noeud voisin
 			voisin = Noeud(next, current_node)
-			# On verifie que le voisin n'est pas dans la liste fermée
-			if(voisin in listeFermée):
-							continue
+			# On verifie que le voisin n'est pas dans déja_vu
+			if(voisin in déjà_vu):
+				continue
 			# Calcul de l'heuristiques (avec distance de Manhattan ) d
 			voisin.g = abs(voisin.position[0] - start_node.position[0]) + abs(voisin.position[1] - start_node.position[1])
 			voisin.h = abs(voisin.position[0] - goal_node.position[0]) + abs(voisin.position[1] - goal_node.position[1])
 
 			voisin.f = voisin.g + voisin.h
-			#  On verifie si le voisin est dans la liste ouverte et si il a une plus basse valeur de f
-			if(add_to_open(listeOuverte, voisin) == True):
+			#  On verifie si le voisin est dans à_Visiter et si il a une plus basse valeur de f
+			if(add_to_à_Visiter(à_visiter, voisin) == True):
 				# On ajoute le voisin dans la liste ouverte
-				listeOuverte.append(voisin)
+				à_visiter.append(voisin)
 	# Si le chemin n'est pas trouvé, on renvoie None
 	return None
 
 def A_étoile_Tas(map, deb, fin):
   # Création des liste ouverte et fermée
-  listeOuverte = []
-  listeFermée = []
+  à_visiter = []
+  déjà_vu = []
   # Création des noeud de départ
   start_node = Noeud(deb, None)
   goal_node = Noeud(fin, None)
   # On ajoute le noeud de départ dans la liste ouverte
-  heapq.heappush(listeOuverte,start_node)
+  heapq.heappush(à_visiter,start_node)
 
   # On s'arrêtera lorsque la liste ouverte sera vide
-  while len(listeOuverte) > 0: 
+  while len(à_visiter) > 0: 
     # on recupere le meilleur noeud...
-    current_node = heapq.heappop(listeOuverte)
+    current_node = heapq.heappop(à_visiter)
     # Et on l'ajoute à la liste fermé
-    listeFermée.append(current_node)
+    déjà_vu.append(current_node)
 
     # On verifie si l'on a trouvé l'arrivée
     if current_node == goal_node:
@@ -163,7 +162,7 @@ def A_étoile_Tas(map, deb, fin):
       # creation du noeud voisin
       voisin = Noeud(next, current_node)
       # On verifie que le voisin n'est pas dans la liste fermée
-      if(voisin in listeFermée):
+      if(voisin in déjà_vu):
               continue
       # Calcul de l'heuristiques (avec distance de Manhattan ) Distance_Manhattan(voisin,start_node)	Distance_Manhattan(voisin,goal_node)
       voisin.g = Distance_Manhattan(voisin,goal_node)
@@ -171,16 +170,126 @@ def A_étoile_Tas(map, deb, fin):
 
       voisin.f = voisin.g + voisin.h
       #  On verifie si le voisin est dans la liste ouverte et si il a une plus basse valeur de f
-      if(add_to_open(listeOuverte, voisin) == True):
+      if(add_to_à_Visiter(à_visiter, voisin) == True):
         # On ajoute le voisin dans la liste ouverte
-        heapq.heappush(listeOuverte,voisin)
+        heapq.heappush(à_visiter,voisin)
 
   # Si le chemin n'est pas trouvé, on renvoie None
   return None
 
+def Evaluation_Somme(map, deb, fin):
+  # Création des liste ouverte et fermée
+  à_visiter = []
+  déjà_vu = []
+  # Création des noeud de départ
+  start_node = Noeud(deb, None)
+  goal_node = Noeud(fin, None)
+  # On ajoute le noeud de départ dans la liste ouverte
+  heapq.heappush(à_visiter,start_node)
+
+  # On s'arrêtera lorsque la liste ouverte sera vide
+  while len(à_visiter) > 0: 
+    # on recupere le meilleur noeud...
+    current_node = heapq.heappop(à_visiter)
+    # Et on l'ajoute à la liste fermé
+    déjà_vu.append(current_node)
+
+    # On verifie si l'on a trouvé l'arrivée
+    if current_node == goal_node:
+      path = []
+      while current_node != start_node:
+        path.append(current_node.position)
+        current_node = current_node.parent
+      # On renvoie le chemin
+      return path
+
+    # Sinon on recupere le noeud où l'on se trouve
+    (x, y) = current_node.position
+    # On liste ces voisins
+    Voisins = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
+
+    for next in Voisins:
+      # On recupere la valeurs de la map (obstacle ou non)
+      map_value = map.get(next)
+      # Verifie si le noeud est un obstacle
+      if(map_value == '#'):
+              continue
+      # creation du noeud voisin
+      voisin = Noeud(next, current_node)
+      # On verifie que le voisin n'est pas dans la liste fermée
+      if(voisin in déjà_vu):
+              continue
+      # Calcul de l'heuristiques (avec distance de Manhattan ) Distance_Manhattan(voisin,start_node)	Distance_Manhattan(voisin,goal_node)
+      voisin.g = Distance_Manhattan(voisin,goal_node)
+      voisin.h = Distance_Manhattan(voisin,start_node)
+
+      voisin.f = voisin.g + voisin.h
+      #  On verifie si le voisin est dans la liste ouverte et si il a une plus basse valeur de f
+      if(add_to_à_Visiter(à_visiter, voisin) == True):
+        # On ajoute le voisin dans la liste ouverte
+        heapq.heappush(à_visiter,voisin)
+
+  # Si le chemin n'est pas trouvé, on renvoie None
+  return None
+
+def Evaluation_distance(map, deb, fin):
+  # Création des liste ouverte et fermée
+  à_visiter = []
+  déjà_vu = []
+  # Création des noeud de départ
+  start_node = Noeud(deb, None)
+  goal_node = Noeud(fin, None)
+  # On ajoute le noeud de départ dans la liste ouverte
+  heapq.heappush(à_visiter,start_node)
+
+  # On s'arrêtera lorsque la liste ouverte sera vide
+  while len(à_visiter) > 0:  # O(n²)
+    # on recupere le meilleur noeud...
+    current_node = heapq.heappop(à_visiter) #O(n)
+    # Et on l'ajoute à la liste fermé
+    déjà_vu.append(current_node)
+
+    # On verifie si l'on a trouvé l'arrivée
+    if current_node == goal_node:
+      path = []
+      while current_node != start_node:
+        path.append(current_node.position)
+        current_node = current_node.parent
+      # On renvoie le chemin
+      return path
+
+    # Sinon on recupere le noeud où l'on se trouve
+    (x, y) = current_node.position
+    # On liste ces voisins
+    Voisins = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
+
+    for next in Voisins: #O(1)
+      # On recupere la valeurs de la map (obstacle ou non)
+      map_value = map.get(next)
+      # Verifie si le noeud est un obstacle
+      if(map_value == '#'):
+              continue
+      # creation du noeud voisin
+      voisin = Noeud(next, current_node)
+      # On verifie que le voisin n'est pas dans la liste fermée
+      if(voisin in déjà_vu):
+              continue
+      # Calcul de l'heuristiques (avec distance de Manhattan ) Distance_Manhattan(voisin,start_node)	Distance_Manhattan(voisin,goal_node)
+      voisin.g = Distance_Manhattan(voisin,goal_node)
+
+      voisin.f = voisin.g
+      #  On verifie si le voisin est dans la liste ouverte et si il a une plus basse valeur de f
+      if(add_to_à_Visiter(à_visiter, voisin) == True):
+        # On ajoute le voisin dans la liste ouverte
+        heapq.heappush(à_visiter,voisin)
+
+  # Si le chemin n'est pas trouvé, on renvoie None
+  return None
+
+
 # Verifie si le voisin est dans la liste ouverte et si il a une plus basse valeur de f
-def add_to_open(listeOuverte, voisin):
-  for noeud in listeOuverte:
+def add_to_à_Visiter(à_visiter, voisin):
+  for noeud in à_visiter:
     if (voisin == noeud and voisin.f >= noeud.f):
       return False
   return True
@@ -245,6 +354,16 @@ def Chemin_Tas(init):
   path = A_étoile_Tas(map, deb, fin)
   return path
 
+def Chemin_somme(init):
+  map,deb,fin,largeur,hauteur=init
+  path = Evaluation_Somme(map, deb, fin)
+  return path
+
+def Chemin_distance(init):
+  map,deb,fin,largeur,hauteur=init
+  path = Evaluation_distance(map, deb, fin)
+  return path
+
 
 carteTest = [	['#','#','#','#','#','#','#','#','#'],
 								['#','$','.','.','.','.','.','.','#'],
@@ -287,13 +406,16 @@ def matriceAléa(n,p):
 def chrono(f,g,n):
 		m=carteFromMatrix(matriceAléa(n,n))
 		debf = time.time()
-		f(m)
+		p1=f(m)
 		finf = time.time()
 		debg = time.time()
-		g(m)
+		p2=g(m)
 		fing = time.time()
-
-		return finf-debf,fing-debg
+		if p1==None:
+			p1=[]
+		if p2==None:
+			p2=[]
+		return len(p1), len(p2)
 
 
 
@@ -303,17 +425,17 @@ def TestPathFinding(nMax):
 		Ltemps = []
 		for i in range(10,nMax):
 				print(i)
-				Ltaille.append(i)
-				ttas,tc = chrono(Chemin_Tas,Chemin,i)
+				Ltaille.append(i**2)
+				ttas,tc = chrono(Chemin_somme,Chemin_distance,i)
 
 				LtempsTas.append(ttas)
-
 				Ltemps.append(tc)
 
-		plt.plot(Ltaille,LtempsTas,label='Chemin_Tas')
+		plt.scatter(Ltaille,LtempsTas,label='Somme')
 
-		plt.plot(Ltaille,Ltemps,label='Chemin')
-
+		plt.scatter(Ltaille,Ltemps,label='Distance au noeud final')
+		plt.xlabel('Nombre de noeuds')
+		plt.ylabel('Longueur du chemin (en nombre de noeuds)')
 		plt.legend()
 
 		plt.show()
