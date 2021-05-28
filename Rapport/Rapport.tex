@@ -373,7 +373,8 @@ def A_étoile(map, deb, fin):
 \subsection{Comparaison}
 
 On se propose de réaliser un programme qui compare le temps d’exécution des deux algorithmes précédents. 
-De plus on réalisera une fonction qui créer des tableaux de tableaux aléatoirement. On obtient : 
+De plus on réalisera une fonction qui créer des tableaux de tableaux aléatoirement afin de tester les algorithmes 
+sur les mêmes tableaux avec des obstacles aléatoires. On obtient : 
 \begin{center}
     \includegraphics[height=7cm]{1.png}
 \end{center}
@@ -386,7 +387,8 @@ Nous utiliserons dans la suite la version avec le tas.
 \subsection{Évaluation Heuristique}
 
 Nous pouvons maintenant modifier l’évaluation heuristique et mesurer la différence de précision et de rapidité. 
-Les deux évaluations prises en compte sont la somme des distances entre le nœud de départ et final et la distance au nœud final. 
+Les deux évaluations prises en compte sont la somme des distances entre le nœud de départ et final et la distance 
+au nœud final. 
 On obtient pour le temps d’exécution le graphe suivant :
 
 \begin{center}
@@ -394,7 +396,8 @@ On obtient pour le temps d’exécution le graphe suivant :
 \end{center}
 
 On constate alors que l’évaluation à un impact directe sur la rapidité du programme. Cela peut venir de 
-la précision de l’algorithme. En effet, il est possible de caractériser la précision de l’algorithme par la longueur du chemin trouvé. 
+la précision de l’algorithme. En effet, il est possible de caractériser la précision de l’algorithme par la longueur 
+du chemin trouvé. 
 Nous mesurons alors la longueur du chemin en fonction du nombre de nœuds du graphe. 
 
 On obtient alors le graphe suivant :
@@ -403,7 +406,8 @@ On obtient alors le graphe suivant :
     \includegraphics[height=7cm]{3.png}
 \end{center}
 
-L’hypothèse est alors validée. L’évaluation la plus efficace est alors celle qui ne dépend que de la distance du nœud au nœud final. 
+L’hypothèse est alors validée. L’évaluation la plus efficace est alors celle qui ne dépend que de la distance du 
+nœud au nœud final. 
 
 \subsection{Complexité}
 
