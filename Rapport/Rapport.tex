@@ -141,7 +141,7 @@ Le graphe utilisé peut être assimilé à une matrice. Chaque coefficient de ce
 On note dans la suite $L$,$H$ respectivement le nombre de colonnes et le nombre de lignes de cette matrice. On note $\mathcal{S}$ 
 
 \begin{definition} Évaluation Heuristique \\
-    On appelle évaluation heuristique une $\mathcal{H} : \mathcal{S} \longrightarrow \mathbb{R}$.
+    On appelle évaluation heuristique une application $\mathcal{H} : \mathcal{S} \longrightarrow \mathbb{R}$.
 \end{definition} 
 
 \begin{definition} Nœud \\
@@ -438,8 +438,6 @@ Il s’agit alors de déterminer le nombre de sommets dans un arbre de facteur d
 
 En notant b le facteur d’embranchement et p la profondeur du nœud final la complexité de l’algorithme est alors $O(b^p)$
 
-
-
 \section{Expérimentation}
 
 Ce travail d’initiative personnel encadré a été réalisé dans le but de répondre à une problématique. Il s’agit de trouver un 
@@ -447,19 +445,25 @@ chemin entre deux points afin de permettre à un robot de se déplacer sur un te
 La première étape est de mettre en place le dispositif. Il s’agit d’une caméra filmant un robot d’en haut afin de le repérer 
 dans un système de coordonnées. 
 
-INSERT PHOTO MONTAGE
+\begin{center}
+    \includegraphics[height=7cm]{montage.jpg}
+\end{center}
 
 Les robots utilisés sont les robots « Holobots » développés par la Rhoban de l’université de 
 Bordeaux et plus précisément le LABRI.
 
-INSERT PHOTO ROBOT
+\begin{center}
+    \includegraphics[height=7cm]{IMG_20210531_124212.jpg}
+\end{center}
 
 Nous avons choisi ces robots pour leurs roues holonomes. Il s’agit de roues permettant des déplacements dans toutes les 
 directions du plan. Elles sont très utiles afin de ne pas utiliser de rotation et de ne pas devoir repérer le sens de déplacement 
 du robot. Cela permet de repérer le robot par un point.
 
-INSERT PHOTO ROUE HOLO
 
+\begin{center}
+    \includegraphics[height=7cm]{IMG_20210531_124303.jpg}
+\end{center}
 
 Afin de repérer le robot, nous avons programmé un système de reconnaissance d’image. Ce programme utilise la bibliothèque « OpenCV ».
 
@@ -536,7 +540,14 @@ def deplacement():
         deplacement(coord, dest)
 \end{minted}
 
-INSERT PHOTO IMAGE CAMERA
+
+\begin{center}
+    \includegraphics[height=7cm]{path.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[height=7cm]{noir.png}
+\end{center}
 
 Le problème rencontré est que le chemin est discret. En effet le robot se déplace alors de point en point de façon saccadée. 
 Une solution peut être de modéliser des trajectoires à partir de ces points afin d’avoir des déplacements continus et plus de fluidité.
