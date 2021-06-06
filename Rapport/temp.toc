@@ -3,9 +3,9 @@
 \contentsline {section}{\numberline {2}Th\IeC {\'e}orie}{3}
 \contentsline {subsection}{\numberline {2.1}Description ensembliste}{3}
 \contentsline {subsection}{\numberline {2.2}Th\IeC {\'e}orie des graphes}{4}
-\contentsline {section}{\numberline {3}Impl\IeC {\'e}mentation}{4}
-\contentsline {subsection}{\numberline {3.1}Impl\IeC {\'e}mentations}{4}
-\contentsline {subsection}{\numberline {3.2}Comparaison}{8}
+\contentsline {section}{\numberline {3}Impl\IeC {\'e}mentation}{5}
+\contentsline {subsection}{\numberline {3.1}Impl\IeC {\'e}mentations}{5}
+\contentsline {subsection}{\numberline {3.2}Comparaison}{7}
 \contentsline {subsection}{\numberline {3.3}\IeC {\'E}valuation Heuristique}{8}
 \contentsline {subsection}{\numberline {3.4}Complexit\IeC {\'e}}{9}
-\contentsline {section}{\numberline {4}Exp\IeC {\'e}rimentation}{10}
+\contentsline {section}{\numberline {4}Exp\IeC {\'e}rimentation}{9}
