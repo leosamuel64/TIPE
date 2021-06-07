@@ -17,7 +17,9 @@ def add_to_à_Visiter(à_visiter, voisin):
     return True
 
 def Distance(a,b):
-    return ((b.position[0]-a.position[0])**2 + (b.position[1]-a.position[1])**2)**(1/2)
+    x = b.position[0]-a.position[0]
+    y = b.position[1]-a.position[1]
+    return ((x)**2 + (y)**2)**(1/2)
 
 def carteFromMatrix(M):
     largeur = len(M[0])
