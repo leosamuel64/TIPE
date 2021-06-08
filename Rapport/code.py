@@ -143,4 +143,4 @@ def deplacement():
     x=coord[0]
     y=coord[1]
     if x>=0 and y>=0:
-        deplacement(coord, dest)
+        deplacement_élémentaire(coord, dest)
